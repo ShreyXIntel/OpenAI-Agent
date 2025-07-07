@@ -135,11 +135,16 @@ const Root = ({ indicator_style = "square_rounded" }: RootProps) => {
       </div>
 
       <div className="w-screen h-[calc(100%-180px)]">
-        {/* Chatbox */}
-        <div className="w-full h-full flex items-center justify-center">
-          {/* Prompt + Image preview */}
-          <div className="relative flex items-end justify-center w-[90%] h-[120px]">
+        <div className="w-full h-full flex flex-col items-center justify-center gap-2">
+          {/* Chatbox */}
+          <div className="bg-white w-[90%] h-[600px] @max-2xl:h-[900px] border-2 rounded-sm flex items-center justify-center">
+            <span className="font-bold text-gray-400 ">This is chatbox. Under Development...✨</span>
+          </div>
+
+          {/* Prompt Input + Image preview */}
+          <div className="relative w-[90%] min-h-[100px] max-h-96 flex">
             <InputPompt placeholder="Say hi 👋..." />
+
             <div className="absolute z-20 bottom-4 w-full flex items-center justify-between ">
               {/* Add document or image  */}
               <div className="pl-4">
