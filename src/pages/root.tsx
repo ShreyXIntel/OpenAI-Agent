@@ -145,31 +145,7 @@ const Root = ({ indicator_style = "square_rounded" }: RootProps) => {
           <div className="relative w-[90%] min-h-[100px] max-h-96 flex">
             <InputPompt placeholder="Say hi 👋..." />
 
-            <div className="absolute z-20 bottom-4 w-full flex items-center justify-between ">
-              {/* Add document or image  */}
-              <div className="pl-4">
-                <Button placeholder="" icon_comp={<Plus />}></Button>
-              </div>
-              <div className="flex items-center justify-center gap-3 pr-4">
-                {/* Send button */}
-                <Button
-                  className="flex items-center justify-center"
-                  placeholder="GPT 40"
-                  icon_comp={<ChevronDown className=" w-3.5" />}
-                  btn_style="no_background"
-                  btn_color="green"
-                  orientation="TextImage"
-                />
-
-                {/* Send button */}
-                <Button
-                  className=""
-                  placeholder="Send"
-                  icon_comp={<Forward />}
-                  orientation="TextImage"
-                />
-              </div>
-            </div>
+            
           </div>
         </div>
       </div>
