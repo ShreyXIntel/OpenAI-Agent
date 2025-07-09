@@ -1,30 +1,23 @@
-import {
-  Bot,
-  ChevronDown,
-  Forward,
-  Logs,
-  Plus,
-  RefreshCcw,
-  Settings,
-} from "lucide-react";
+import { Bot, Logs, RefreshCcw, Settings } from "lucide-react";
 
 import { useState } from "react";
 
-import { Link, useLocation } from "react-router-dom";
+import { Link, Outlet, useLocation } from "react-router-dom";
 import { BtnBgShadow } from "../components/buttons/btn-bg-shadow";
 import { Button } from "../components/buttons/button";
-import InputPompt from "../components/inputs/input-pompt";
+import Statusbar from "../ui/statusbar";
 
 type IndicatorStyle = "square" | "square_rounded" | "circle";
 
 interface RootProps {
-  indicator_style?: IndicatorStyle;
+  input_style?: IndicatorStyle;
 }
 
-const Root = ({ indicator_style = "square_rounded" }: RootProps) => {
+const Root = ({ input_style = "square_rounded" }: RootProps) => {
   const [refreshTokenButtonHovered, setRefreshTokenButtonHovered] =
     useState(false);
 
+  // For copyright marking
   const location = useLocation();
 
   const tabs = [
@@ -72,19 +65,17 @@ const Root = ({ indicator_style = "square_rounded" }: RootProps) => {
         </div>
 
         <div className="h-full w-[calc(100%-10%)] flex flex-col ">
-          <div className="h-1/2"></div>
+          <div className="h-1/2 text-3xl font-rubik font-bold flex items-center">Start a chat to add a tittle</div>
           <div className="h-1/2 flex justify-between items-center">
             {/* Tabs - Chat, Logs, Settings */}
             <div className="flex h-fit gap-3">
               {tabs.map((tab, index) => (
                 <div key={tab.id} className="relative flex">
-                  <BtnBgShadow
-                    borderRadius={BtnBgShadowRadius[indicator_style]}
-                  />
+                  <BtnBgShadow borderRadius={BtnBgShadowRadius[input_style]} />
                   <Link
                     to={tab.path}
                     className={`border-border flex cursor-pointer items-center justify-center gap-[6px] font-bold transition-all hover:-translate-x-[1px] hover:-translate-y-[1px] ${
-                      borderRadiusStyles[indicator_style]
+                      borderRadiusStyles[input_style]
                     } relative border-2 ${
                       index === currenttabIndex
                         ? `${tab.btn_color} ${tab.text_color} translate-x-[1.5px] translate-y-[1.5px] px-4 py-1 hover:translate-x-[1.5px] hover:translate-y-[1.5px] active:translate-x-[1.5px] active:translate-y-[1.5px]`
@@ -134,28 +125,10 @@ const Root = ({ indicator_style = "square_rounded" }: RootProps) => {
         </div>
       </div>
 
-      <div className="w-screen h-[calc(100%-180px)]">
-        <div className="w-full h-full flex flex-col items-center justify-center gap-2">
-          {/* Chatbox */}
-          <div className="bg-white w-[90%] h-[600px] @max-2xl:h-[900px] border-2 rounded-sm flex items-center justify-center">
-            <span className="font-bold text-gray-400 ">This is chatbox. Under Development...✨</span>
-          </div>
-
-          {/* Prompt Input + Image preview */}
-          <div className="relative w-[90%] min-h-[100px] max-h-96 flex">
-            <InputPompt placeholder="Say hi 👋..." />
-
-            
-          </div>
-        </div>
-      </div>
-
-      <div className="w-screen h-[30px] bg-statusbar">
-        {/* Status bar like VS Code */}
-        {/* Proxy connected? */}
-        {/* Token Refresh */}
-        {/* Author */}
-      </div>
+      <Outlet />
+      
+      {/* Status bar */}
+      <Statusbar />
     </div>
   );
 };

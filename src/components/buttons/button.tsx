@@ -32,7 +32,7 @@ export const Button = ({
     blue: "bg-button-blue hover:bg-button-blue-hovered",
     purple: "bg-button-purple hover:bg-button-purple-hovered",
     red: "bg-button-red hover:bg-button-red-hovered",
-    transparent: "bg-transparent"
+    transparent: "bg-transparent",
   };
 
   const borderRadiusStyles = {
@@ -58,7 +58,7 @@ export const Button = ({
 
   // Determine if we should show background shadow and borders
   const isNoBackground = btn_style === "no_background";
-  
+
   // Different styling for no_background vs regular buttons
   const buttonBaseClasses = isNoBackground
     ? "bg-transparent hover:bg-gray-100/10" // Transparent with subtle hover
@@ -71,8 +71,10 @@ export const Button = ({
   return (
     <div className="relative">
       {/* Only render BtnBgShadow if not no_background style */}
-      {!isNoBackground && <BtnBgShadow borderRadius={BtnBgShadowRadius[btn_style]} />}
-      
+      {!isNoBackground && (
+        <BtnBgShadow borderRadius={BtnBgShadowRadius[btn_style]} />
+      )}
+
       <button
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
@@ -80,7 +82,7 @@ export const Button = ({
         type={btn_type}
         className={`${buttonBaseClasses} ${borderRadiusStyles[btn_style]} ${
           isNoBackground ? "" : "relative z-10"
-        } flex w-full cursor-pointer items-center justify-center gap-1 px-2 py-1 font-bold transition-all outline-none ${buttonTransformClasses} ${textColor} ${className}`}
+        } flex min-w-[42px] min-h-[38px] w-full cursor-pointer items-center justify-center gap-1 px-2 py-1 font-bold transition-all outline-none ${buttonTransformClasses} ${textColor} ${className}`}
       >
         {orientation === "TextImage" ? (
           <>

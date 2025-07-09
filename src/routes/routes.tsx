@@ -5,8 +5,8 @@ import {
 } from "react-router-dom";
 import { ErrorPage } from "../pages/error-page";
 import Chat from "../ui/chat";
-import { Logs } from "lucide-react";
 import Root from "../pages/root";
+import Logs from "../ui/logs";
 
 type RouteObject = IndexRouteObject | NonIndexRouteObject;
 
