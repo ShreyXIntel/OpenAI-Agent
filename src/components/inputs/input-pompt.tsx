@@ -1,6 +1,7 @@
 import { ChevronDown, Forward, Paperclip } from "lucide-react";
 import { Button } from "../buttons/button";
 import { useState } from "react";
+import { open } from "@tauri-apps/plugin-dialog";
 
 interface InputPromptProp {
   value?: string | number | readonly string[] | undefined;
@@ -20,6 +21,14 @@ const InputPompt = ({
     square: "rounded-none",
     square_rounded: "rounded-[4px]",
     circle: "rounded-full",
+  };
+
+  const handleAttachFile = async () => {
+    const file = await open({
+      multiple: false,
+      directory: false,
+    });
+    console.log(file);
   };
 
   return (
@@ -47,7 +56,12 @@ const InputPompt = ({
       <div className="absolute z-20 bottom-4 w-full flex items-center justify-between ">
         {/* Add document or image  */}
         <div className="pl-4">
-          <Button className="" placeholder="" icon_comp={<Paperclip className="size-[20px]"/>}></Button>
+          <Button
+            onClick={handleAttachFile}
+            className=""
+            placeholder=""
+            icon_comp={<Paperclip className="size-[20px]" />}
+          ></Button>
         </div>
         <div className="flex items-center justify-center gap-3 pr-4">
           {/* Send button */}

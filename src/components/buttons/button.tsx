@@ -11,6 +11,7 @@ interface ButtonProps {
   onMouseEnter?: React.MouseEventHandler<HTMLButtonElement>;
   onMouseLeave?: React.MouseEventHandler<HTMLButtonElement>;
   onClick?: () => void;
+  isBtnShadow?: boolean;
 }
 
 export const Button = ({
@@ -24,6 +25,7 @@ export const Button = ({
   onClick,
   onMouseEnter,
   onMouseLeave,
+  isBtnShadow = true,
 }: ButtonProps) => {
   // Map button styles to the appropriate Tailwind classes
   const bgColors = {
@@ -59,6 +61,9 @@ export const Button = ({
   // Determine if we should show background shadow and borders
   const isNoBackground = btn_style === "no_background";
 
+  // Turn off btn shadow if no background
+  isBtnShadow = btn_style !== "no_background";
+
   // Different styling for no_background vs regular buttons
   const buttonBaseClasses = isNoBackground
     ? "bg-transparent hover:bg-gray-100/10" // Transparent with subtle hover
@@ -66,12 +71,12 @@ export const Button = ({
 
   const buttonTransformClasses = isNoBackground
     ? "" // No transform effects for no_background
-    : "hover:-translate-x-[1px] hover:-translate-y-[1px] active:translate-x-[1.5px] active:translate-y-[1.5px]";
+    : "hover:-translate-x-[1.5px] hover:-translate-y-[1.5px] active:translate-x-[1.5px] active:translate-y-[1.5px]";
 
   return (
     <div className="relative">
       {/* Only render BtnBgShadow if not no_background style */}
-      {!isNoBackground && (
+      {isBtnShadow && (
         <BtnBgShadow borderRadius={BtnBgShadowRadius[btn_style]} />
       )}
 
@@ -82,7 +87,7 @@ export const Button = ({
         type={btn_type}
         className={`${buttonBaseClasses} ${borderRadiusStyles[btn_style]} ${
           isNoBackground ? "" : "relative z-10"
-        } flex min-w-[42px] min-h-[38px] w-full cursor-pointer items-center justify-center gap-1 px-2 py-1 font-bold transition-all outline-none ${buttonTransformClasses} ${textColor} ${className}`}
+        } flex min-w-[32px] min-h-[28px] w-full cursor-pointer items-center justify-center gap-1 px-2 py-1 font-bold transition-all outline-none ${buttonTransformClasses} ${textColor} ${className}`}
       >
         {orientation === "TextImage" ? (
           <>

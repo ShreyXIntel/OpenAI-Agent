@@ -1,4 +1,4 @@
-import { Bot, Logs, RefreshCcw, Settings } from "lucide-react";
+import { Bot, Lightbulb, Logs, RefreshCcw, Settings } from "lucide-react";
 
 import { useState } from "react";
 
@@ -36,6 +36,14 @@ const Root = ({ input_style = "square_rounded" }: RootProps) => {
       img: <Logs className="text-[18px]" />,
       btn_color: "bg-button-yellow",
       text_color: "text-foreground",
+    },
+    {
+      id: "ideas",
+      path: "/ideas",
+      name: "Plans - Dev Mode",
+      img: <Lightbulb className="text-[18px]" />,
+      btn_color: "bg-button-red",
+      text_color: "text-white",
     },
   ];
 

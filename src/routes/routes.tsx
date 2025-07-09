@@ -7,6 +7,7 @@ import { ErrorPage } from "../pages/error-page";
 import Chat from "../ui/chat";
 import Root from "../pages/root";
 import Logs from "../ui/logs";
+import Ideas from "../test/ideas";
 
 type RouteObject = IndexRouteObject | NonIndexRouteObject;
 
@@ -23,6 +24,10 @@ const routes: RouteObject[] = [
       {
         path: "logs",
         element: <Logs />,
+      },
+      {
+        path: "ideas",
+        element: <Ideas />,
       },
     ],
   },

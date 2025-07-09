@@ -59,7 +59,16 @@
     --secondary: #4b5563;
     --border: #111827;
 
-    /* input colors */
+    /* Chatbox colors */
+    /** User */
+    --chat-background-user: #ffd500;
+    --chat-text-color-user: #000;
+
+    /** AI */
+    --chat-background-ai: ;
+    --chat-text-color-ai: ;
+
+    /* input text colors */
     --background-input: #ffeda7;
 
     /* button colors */
@@ -112,6 +121,16 @@
   --color-accent-foreground: var(--accent-foreground);
   --color-secondary: var(--secondary);
   --color-border: var(--border);
+
+  /* Chatbox colors */
+  /** User */
+  --color-chat-bg-user: var(--chat-background-user);
+  --color-chat-text-user: var(--chat-text-color-user);
+
+  /** AI */
+  --color-chat-bg-ai: var(--chat-background-ai);
+  --color-chat-text-ai: var(--chat-text-color-ai);
+
   --color-background-input: var(--background-input);
 
   /* Button colors */
