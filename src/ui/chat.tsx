@@ -19,25 +19,23 @@ const Chat = ({ input_style = "square_rounded" }: ChatProps) => {
     <div className="w-screen h-[calc(100%-180px)] flex items-center justify-center">
       <div className="w-[90%] h-full flex flex-col items-center justify-center gap-2">
         {/* Chatbox */}
-        <div className="bg-white w-full h-[600px] @max-2xl:h-[900px] border-2 rounded-sm flex flex-col font-archivo text-sm">
+        <div className="bg-chatbox-bg w-full h-[600px] @max-2xl:h-[900px] border-2 rounded-sm flex flex-col font-archivo text-sm">
           {/* User chat  */}
           <div className="w-full min-h-[30px] p-2">
             <div className="w-full min-h-[40px] flex items-center justify-start">
               <span className="bg-chat-bg-user text-chat-text-user px-2 py-1.5 rounded-sm font-semibold border-2">
-                Hi, how are you doing today
+                Lorem ipsum dolor sit amet consectetur adipiscing elit.
               </span>
             </div>
           </div>
 
           {/* AI chat  */}
-          <div className="w-full min-h-[30px] p-2 flex flex-col">
-            <div className="relative max-w-[95%] min-h-[40px] text-start flex flex-col items-center">
-              <p className="bg-chat-bg-ai text-chat-text-ai px-2 py-4 pb-6 rounded-sm font-bold">
-                Hi, I'm good how are you? How can I help you today? Hi, I'm good
-                how are you? How can I help you today? Hi, I'm good how are you?
-                How can I help you today?
+          <div className="w-full min-h-[30px] p-2 flex flex-col items-start">
+            <div className="relative max-w-[95%] min-h-[40px] text-start flex flex-col items-center pb-6">
+              <p className="bg-chat-bg-ai text-chat-text-ai px-2 py-4  rounded-sm font-bold">
+                "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat."
               </p>
-              <div className="w-full flex items-center justify-end px-4">
+              <div className="w-full flex items-center justify-start px-2">
                 <Button
                   className="h-[28px]"
                   placeholder="Copy"
@@ -52,8 +50,8 @@ const Chat = ({ input_style = "square_rounded" }: ChatProps) => {
           {/* User chat  */}
           <div className="w-full min-h-[30px] p-2">
             <div className="w-full min-h-[40px] flex items-center">
-              <span className="bg-chat-bg-user text-chat-text-user px-2 py-1.5 rounded-sm font-semibold">
-                Hi, how are you doing today
+              <span className="bg-chat-bg-user text-chat-text-user px-2 py-1.5 rounded-sm font-semibold border-2">
+                Lorem ipsum dolor sit amet consectetur adipiscing elit. Sit amet consectetur adipiscing elit quisque faucibus ex. Adipiscing elit quisque faucibus ex sapien vitae pellentesque.
               </span>
             </div>
           </div>

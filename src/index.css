@@ -14,32 +14,6 @@
   animation: blink-caret 0.75s step-end infinite;
 }
 
-/* .better-scrollbar::-webkit-scrollbar {
-  width: 10px;
-}
-
-
-.better-scrollbar::-webkit-scrollbar-track {
-  background: #f1f1f1;
-}
-
-.better-scrollbar::-webkit-scrollbar-thumb {
-  background: #888;
-  border-radius: 10px;
-  cursor: grab;
-}
-
-.better-scrollbar::-webkit-scrollbar-thumb:active {
-  background: #888;
-  border-radius: 10px;
-  cursor: grabbing;
-}
-
-
-.better-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: #555;
-} */
-
 @layer base {
   :root {
     --background: #fffbeb;
@@ -60,8 +34,11 @@
     --border: #111827;
 
     /* Chatbox colors */
+    /** Chatbox */
+    --chatbox-background-color: #f7eecb;
+
     /** User */
-    --chat-background-user: #ffd500;
+    --chat-background-user: #ffbb00;
     --chat-text-color-user: #000;
 
     /** AI */
@@ -123,6 +100,9 @@
   --color-border: var(--border);
 
   /* Chatbox colors */
+  /** Chatbox */
+  --color-chatbox-bg: var(--chatbox-background-color);
+
   /** User */
   --color-chat-bg-user: var(--chat-background-user);
   --color-chat-text-user: var(--chat-text-color-user);
@@ -156,3 +136,29 @@
   font-style: normal;
   font-variation-settings: "wdth" 100;
 }
+
+/* .better-scrollbar::-webkit-scrollbar {
+  width: 10px;
+}
+
+
+.better-scrollbar::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.better-scrollbar::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+  cursor: grab;
+}
+
+.better-scrollbar::-webkit-scrollbar-thumb:active {
+  background: #888;
+  border-radius: 10px;
+  cursor: grabbing;
+}
+
+
+.better-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #555;
+} */

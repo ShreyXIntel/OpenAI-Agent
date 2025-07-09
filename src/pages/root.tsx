@@ -1,4 +1,4 @@
-import { Bot, Lightbulb, Logs, RefreshCcw, Settings } from "lucide-react";
+import { Bot, Logs, RefreshCcw, Settings, Waypoints } from "lucide-react";
 
 import { useState } from "react";
 
@@ -38,10 +38,10 @@ const Root = ({ input_style = "square_rounded" }: RootProps) => {
       text_color: "text-foreground",
     },
     {
-      id: "ideas",
-      path: "/ideas",
-      name: "Plans - Dev Mode",
-      img: <Lightbulb className="text-[18px]" />,
+      id: "dev",
+      path: "/dev",
+      name: "Dev Mode",
+      img: <Waypoints className="text-[18px]" />,
       btn_color: "bg-button-red",
       text_color: "text-white",
     },
@@ -49,7 +49,9 @@ const Root = ({ input_style = "square_rounded" }: RootProps) => {
 
   // Find current tab index based on current path
   const currenttabIndex = tabs.findIndex(
-    (tab) => tab.path === location.pathname
+    (tab) =>
+      tab.path === location.pathname ||
+      (location.pathname === "/" && tab.path === "/chat")
   );
 
   const borderRadiusStyles: Record<IndicatorStyle, string> = {
@@ -73,7 +75,9 @@ const Root = ({ input_style = "square_rounded" }: RootProps) => {
         </div>
 
         <div className="h-full w-[calc(100%-10%)] flex flex-col ">
-          <div className="h-1/2 text-3xl font-rubik font-bold flex items-center">Start a chat to add a tittle</div>
+          <div className="h-1/2 text-3xl font-rubik font-bold flex items-center">
+            Start a chat to add a tittle
+          </div>
           <div className="h-1/2 flex justify-between items-center">
             {/* Tabs - Chat, Logs, Settings */}
             <div className="flex h-fit gap-3">
@@ -134,7 +138,7 @@ const Root = ({ input_style = "square_rounded" }: RootProps) => {
       </div>
 
       <Outlet />
-      
+
       {/* Status bar */}
       <Statusbar />
     </div>
