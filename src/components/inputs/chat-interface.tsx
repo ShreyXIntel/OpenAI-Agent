@@ -2,7 +2,7 @@ import { Send, Plus } from "lucide-react";
 
 import { useState } from "react";
 import { Button } from "../buttons/button";
-import InputPrompt from "./input-pompt";
+import InputPrompt from "./input-prompt";
 
 const ChatInterface = () => {
   const [inputValue, setInputValue] = useState("");

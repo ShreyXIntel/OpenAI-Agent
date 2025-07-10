@@ -1,11 +1,12 @@
+// src/pages/root.tsx
 import { Bot, Logs, RefreshCcw, Settings, Waypoints } from "lucide-react";
-
-import { useState } from "react";
-
+import { useState, useEffect } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import { BtnBgShadow } from "../components/buttons/btn-bg-shadow";
 import { Button } from "../components/buttons/button";
+import { SettingsModal } from "../components/modals/settings-modal";
 import Statusbar from "../ui/statusbar";
+import { intelGenAIService } from "../services/intelGenAIService";
 
 type IndicatorStyle = "square" | "square_rounded" | "circle";
 
@@ -14,10 +15,11 @@ interface RootProps {
 }
 
 const Root = ({ input_style = "square_rounded" }: RootProps) => {
-  const [refreshTokenButtonHovered, setRefreshTokenButtonHovered] =
-    useState(false);
+  const [refreshTokenButtonHovered, setRefreshTokenButtonHovered] = useState(false);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [tokenInfo, setTokenInfo] = useState<any>(null);
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
-  // For copyright marking
   const location = useLocation();
 
   const tabs = [
@@ -66,6 +68,72 @@ const Root = ({ input_style = "square_rounded" }: RootProps) => {
     circle: "100",
   };
 
+  useEffect(() => {
+    const updateTokenInfo = () => {
+      const info = intelGenAIService.getTokenInfo();
+      setTokenInfo(info);
+    };
+
+    updateTokenInfo();
+    
+    // Update token info every minute
+    const interval = setInterval(updateTokenInfo, 60000);
+    
+    return () => clearInterval(interval);
+  }, []);
+
+  const handleRefreshToken = async () => {
+    if (!intelGenAIService.isConfigured()) {
+      setIsSettingsOpen(true);
+      return;
+    }
+
+    setIsRefreshing(true);
+    try {
+      await intelGenAIService.refreshToken();
+      // Update token info after refresh
+      const info = intelGenAIService.getTokenInfo();
+      setTokenInfo(info);
+    } catch (error) {
+      console.error('Failed to refresh token:', error);
+      // Could show error message here
+    } finally {
+      setIsRefreshing(false);
+    }
+  };
+
+  const formatTokenTime = () => {
+    if (!tokenInfo?.isValid) return "Token Expired";
+    
+    const minutes = Math.floor(tokenInfo.timeUntilExpiry / (1000 * 60));
+    const hours = Math.floor(minutes / 60);
+    
+    if (hours > 0) {
+      return `${hours}:${String(minutes % 60).padStart(2, '0')}`;
+    } else {
+      return `${minutes}m`;
+    }
+  };
+
+  const getTokenDisplayText = () => {
+    if (refreshTokenButtonHovered) {
+      if (!intelGenAIService.isConfigured()) {
+        return "Configure Settings";
+      }
+      return isRefreshing ? "Refreshing..." : "Refresh Token";
+    }
+    return formatTokenTime();
+  };
+
+  const getTokenButtonColor = () => {
+    if (!intelGenAIService.isConfigured()) return "red";
+    if (!tokenInfo?.isValid) return "red";
+    
+    const minutes = Math.floor(tokenInfo.timeUntilExpiry / (1000 * 60));
+    if (minutes < 30) return "yellow";
+    return "blue";
+  };
+
   return (
     <div className="w-screen h-screen bg-background overflow-hidden">
       <div className="relative flex items-center justify-start w-screen h-[150px]">
@@ -76,7 +144,7 @@ const Root = ({ input_style = "square_rounded" }: RootProps) => {
 
         <div className="h-full w-[calc(100%-10%)] flex flex-col ">
           <div className="h-1/2 text-3xl font-rubik font-bold flex items-center">
-            Start a chat to add a tittle
+            Intel GenAI Chat Interface
           </div>
           <div className="h-1/2 flex justify-between items-center">
             {/* Tabs - Chat, Logs, Settings */}
@@ -109,27 +177,32 @@ const Root = ({ input_style = "square_rounded" }: RootProps) => {
                 </div>
               ))}
             </div>
+            
             <div className="flex pr-4 gap-3">
               {/* Refresh token button */}
-              <div className="w-[200px]  font-bold">
+              <div className="w-[200px] font-bold">
                 <Button
-                  btn_color="blue"
+                  btn_color={getTokenButtonColor()}
                   className=""
-                  placeholder={
-                    refreshTokenButtonHovered ? "Refresh Token" : "10:20"
+                  placeholder={getTokenDisplayText()}
+                  icon_comp={
+                    <RefreshCcw className={`w-4.5 ${isRefreshing ? 'animate-spin' : ''}`} />
                   }
-                  icon_comp={<RefreshCcw className=" w-4.5" />}
                   onMouseEnter={() => setRefreshTokenButtonHovered(true)}
                   onMouseLeave={() => setRefreshTokenButtonHovered(false)}
+                  onClick={handleRefreshToken}
+                  disabled={isRefreshing}
                 />
               </div>
+              
               {/* Settings button */}
               <div className="w-fit font-bold">
                 <Button
                   btn_color="yellow"
                   className=""
                   placeholder=""
-                  icon_comp={<Settings className=" w-6.5" />}
+                  icon_comp={<Settings className="w-6.5" />}
+                  onClick={() => setIsSettingsOpen(true)}
                 />
               </div>
             </div>
@@ -141,6 +214,12 @@ const Root = ({ input_style = "square_rounded" }: RootProps) => {
 
       {/* Status bar */}
       <Statusbar />
+
+      {/* Settings Modal */}
+      <SettingsModal
+        isOpen={isSettingsOpen}
+        onClose={() => setIsSettingsOpen(false)}
+      />
     </div>
   );
 };
