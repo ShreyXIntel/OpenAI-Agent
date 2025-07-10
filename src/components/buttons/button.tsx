@@ -12,6 +12,7 @@ interface ButtonProps {
   onMouseLeave?: React.MouseEventHandler<HTMLButtonElement>;
   onClick?: () => void;
   isBtnShadow?: boolean;
+  disabled?: boolean | undefined;
 }
 
 export const Button = ({
@@ -26,6 +27,7 @@ export const Button = ({
   onMouseEnter,
   onMouseLeave,
   isBtnShadow = true,
+  disabled = false,
 }: ButtonProps) => {
   // Map button styles to the appropriate Tailwind classes
   const bgColors = {
@@ -81,6 +83,7 @@ export const Button = ({
       )}
 
       <button
+        disabled={disabled}
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
         onClick={onClick}
